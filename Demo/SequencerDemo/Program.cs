@@ -24,7 +24,7 @@ namespace SequencerDemo
                 }
                 Application.Run(mainWindow);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }

@@ -129,10 +129,26 @@ namespace Sanford.Multimedia.Midi
                         return;
                     }
 
-                    foreach(IEnumerator<int> enumerator in enumerators)
-                    {
-                        enumerator.MoveNext();
+                    //foreach(IEnumerator<int> enumerator in enumerators)
+                    //{
+                    //    enumerator.MoveNext();
+                    //}
+                    //*************************添加的代码*************************
+                    int count = enumerators.Count;
+                    for (int i = 0; i < count; i++) //使用for替换foreach，变为线程安全
+                    {   //使用try-catch防止count变化时i越界
+                        try
+                        {
+                            enumerators[i].MoveNext();  //如果枚举数已成功地推进到下一个元素，则为 true；如果枚举数传递到集合的末尾，则为 false。
+                        }
+                        catch (Exception)
+                        {
+                            i = 0;
+                            count = enumerators.Count;  //重新计数
+                            continue;
+                        }
                     }
+                    //*************************添加的代码*************************
                 }
             };
         }
