@@ -126,10 +126,7 @@ namespace SequencerDemo
             {
                 string fileName = openMidiFileDialog.FileName;
                 Open(fileName);
-                //*************************添加的代码*************************
-                if (listBox1.Items.IndexOf(fileName)<0) //添加音乐时排除重复音乐，无重复则添加
-                    listBox1.Items.Add(fileName);
-                //*************************添加的代码*************************
+                
             }
         }
 
@@ -152,6 +149,8 @@ namespace SequencerDemo
             }
             //*************************添加的代码*************************
             current_music = fileName;   //每次载入时修改当前音乐
+            if (listBox1.Items.IndexOf(fileName)<0) //添加音乐时排除重复音乐，无重复则添加
+                listBox1.Items.Add(fileName);
             //*************************添加的代码*************************
         }
 
