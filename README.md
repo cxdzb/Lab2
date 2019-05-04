@@ -21,7 +21,7 @@
 无法计算
 
 ## 五、知识点总结图（Concept MAP）
-![](https://github.com/cxdzb/Lab1/blob/master/Images/2.png?raw=true)
+![](https://github.com/cxdzb/Lab2/blob/master/Images/1.png?raw=true)
 
 ## 六、结论
 #### 实验过程：
@@ -49,14 +49,14 @@
 测试时发现，每切换一首歌，对应的enumerators.Count就会变化，而foreach是线程不安全的，当enumerators.Count变小，就会发生越界，所以将其替换为for + try-catch就能动态地改变i和count，避免越界的发生。
 #### 实验结果：
 ###### 1、刚打开程序时
-![](https://github.com/cxdzb/Lab1/blob/master/Images/4.png?raw=true)
+![](https://github.com/cxdzb/Lab2/blob/master/Images/2.png?raw=true)
 
 ###### 2、改变形状时
-![](https://github.com/cxdzb/Lab1/blob/master/Images/5.png?raw=true)
+![](https://github.com/cxdzb/Lab2/blob/master/Images/3.png?raw=true)
 
 ###### 3、将音乐加入列表
-![](https://github.com/cxdzb/Lab1/blob/master/Images/6.png?raw=true)
+![](https://github.com/cxdzb/Lab2/blob/master/Images/4.png?raw=true)
 
 ###### 4、拖拽音乐到列表
-![](https://github.com/cxdzb/Lab1/blob/master/Images/7.png?raw=true)
-![](https://github.com/cxdzb/Lab1/blob/master/Images/7.png?raw=true)
+![](https://github.com/cxdzb/Lab2/blob/master/Images/5.png?raw=true)
+![](https://github.com/cxdzb/Lab2/blob/master/Images/6.png?raw=true)
