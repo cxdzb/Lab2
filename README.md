@@ -2,74 +2,61 @@
 #### 学院：软件学院  班级：2017级软工1班  学号：3017218062   姓名：刘书裴
 #### 日期：  2019  年 3 月 14 日
 ## 一、功能概述
-###### 1、命令行输入一个”字符串”，则输出对应二维码。
-###### 2、命令行输入”-fqrcode.txt”，则将qrcode.txt中每一行字符串转化为二维码图片。
-###### 3、命令行输入”-mqrcode”，则将mysql的mydata库qrcode表中每一行字符串转化为二维码图片。
-###### 4、命令行输入”-eqrcode.xlsx”，则将qrcode.xlsx中每一行字符串转化为二维码图片。
-###### 5、命令行输入过多、过长或无输入，则输出对应错误。
+###### 1、点击open，选择音乐进行播放。
+###### 2、鼠标拖入midi文件进行播放。
+###### 3、可使用按钮进行开始/暂停/继续操作，也可使用进度条改变播放进度。
+###### 4、中央列表储存着播放过的音乐。
+###### 5、可选择播放模式（单曲循环/顺序播放/随机播放）。
 
 ## 二、项目特色
-###### 1、生成的二维码加入了背景和logo，显得更加华丽。
-###### 2、考虑所有参数情况和文件情况：
-###### 1)加入参数个数限制和长度限制，违反限制会输出相应错误。
-###### 2)加入文件类型判断和存在判断，不存在即新建文件。
+###### 1、多种播放模式。
+###### 2、可点击列表对应音乐继续播放。
 ###### 3、加入try-catch异常语句，防止意外错误的发生。
-###### 4、将大部分功能集成为多个成员函数，避免修改麻烦。
+###### 4、实现了窗口自适应。
 
 ## 三、代码总量
-![](https://github.com/cxdzb/Lab1/blob/master/Images/1.png?raw=true)
+无法计算
 
 ## 四、工作时间
-![](https://github.com/cxdzb/Lab1/blob/master/Images/time.png?raw=true)
-
-总共8hours 30minutes左右。
+无法计算
 
 ## 五、知识点总结图（Concept MAP）
 ![](https://github.com/cxdzb/Lab1/blob/master/Images/2.png?raw=true)
 
 ## 六、结论
 #### 实验过程：
-![](https://github.com/cxdzb/Lab1/blob/master/Images/3.png?raw=true)
 
-###### 1、StringToQrCode和PrintQrCode
-QrCode通过new QrEncoder(ErrorCorrectionLevel.M).Encode(str)创建二维码对象，内部包含一个方阵（Matrix），可通过遍历打印出来。
-###### 2、DumpPng
-QrCode需要用GraphicsRenderer进行渲染，再通过render.draw(graph,qrcode)存取数据，读取并打印图片需要先创建Bitmap位图再使用位图创建Graphics，graph.FillRectangle()可以填充一个有色矩形，graph.DrawImage可以将一张图绘制在另一张图上，取焦点时可以使用new Point，最后可以使用Sava保存图片。
-###### 3、ReadTxt
-使用FileStream文件流读取文件，设置参数为FileMode.OpenOrCreate和FileAccess.Read表示存在文件时读取，不存在文件时新建后读取。使用StreamReader可通过ReadLine()逐行读取，读取后使用Add()将每一行添加到List中。
-###### 4、ReadMysql
-创建MySqlConnection连接，使用Open()开启连接，将mysql命令传入MySqlCommand，然后用ExecuteReader()执行并保存结果，不断使用Read()读取，最后Close()。
-###### 5、ReadExcel
-类似于txt，也是用FileStream读取。本次是用NPOI处理Excel，先使用XSSFWorkbook和HSSFWorkbook处理xls与xlsx两种格式，再取GetSheetAt()，使用GetRow().GetCell()取值。
-###### 6、Main
-使用多次判断来实现多种参数的输入，使用try-catch语句避免意外错误的发生而中止程序。新建一个对象用以实现所有功能。
+###### 1、实现控件和窗口的自适应
+1)、定义多个容器，用于保存各个控件的原始比例。
+2)、在Form1构造函数中，初始化各容器。
+3)、在事件Form1Resize（窗口大小变化事件）中，遍历所有控件，将其大小、位置、字体按比例变化。
+###### 2、实现文件拖拽读取
+1)、DragEnter 事件在其他应用程序拖入的文件进入时判断当前拖动的对象类型，如果是文件类型，则设置拖动响应类型为Copy。
+2)、DragDrop 事件在这里完成将其他应用程序拖入的文件拷贝到Winform应用当前的目录中。
+###### 3、实现列表点击播放
+1)、添加一个listBox。
+2)、编辑listBox1_SelectedIndexChanged（选择项改变）事件，当选中音乐时，载入并播放此音乐。
+3)、使用Application.DoEvents避免程序假死。
+###### 4、实现播放模式选择
+1)、添加3个radioButton。
+2)、定义play_method属性用于储存播放模式。
+3)、3个radioButton公用radioButton_Click事件，默认为顺序播放，当选择某个模式时，play_method随之改变。
+###### 5、实现多种播放模式
+1)、定义当前播放的音乐及其索引。
+2)、在HandlePlayingCompleted事件中调用play。
+3)、创建play函数，判断播放模式。对于循环播放，即播放列表中下一首；对于随机播放，使用随机数选择音乐；对于单曲循环，即重新播放当前音乐。
+###### 6、修改Sequencer.cs避免越界
+测试时发现，每切换一首歌，对应的enumerators.Count就会变化，而foreach是线程不安全的，当enumerators.Count变小，就会发生越界，所以将其替换为for + try-catch就能动态地改变i和count，避免越界的发生。
 #### 实验结果：
-###### 1、输入“myqrcode”
+###### 1、刚打开程序时
 ![](https://github.com/cxdzb/Lab1/blob/master/Images/4.png?raw=true)
 
-###### 2、输入“myqrcode test”
+###### 2、改变形状时
 ![](https://github.com/cxdzb/Lab1/blob/master/Images/5.png?raw=true)
 
-###### 3、输入“myqrcode -f”
+###### 3、将音乐加入列表
 ![](https://github.com/cxdzb/Lab1/blob/master/Images/6.png?raw=true)
 
-###### 4、输入“myqrcode -m”
+###### 4、拖拽音乐到列表
 ![](https://github.com/cxdzb/Lab1/blob/master/Images/7.png?raw=true)
-
-###### 5、输入“myqrcode -e”
-![](https://github.com/cxdzb/Lab1/blob/master/Images/8.png?raw=true)
-
-###### 6、输入“myqrcode -fresource\qrcode.txt”
-![](https://github.com/cxdzb/Lab1/blob/master/Images/9.png?raw=true)
-
-###### 7、输入“myqrcode -mqrcode”
-![](https://github.com/cxdzb/Lab1/blob/master/Images/10.png?raw=true)
-
-###### 8、输入“myqrcode -eresource\qrcode.xlsx”
-![](https://github.com/cxdzb/Lab1/blob/master/Images/11.png?raw=true)
-
-###### 9、输入“myqrcode 123qwe123qw123qwe123qwe123we123qwe123qwe123qwe123qwe123q”
-![](https://github.com/cxdzb/Lab1/blob/master/Images/12.png?raw=true)
-
-###### 10、输入“myqrcode arg1 arg2 arg3”
-![](https://github.com/cxdzb/Lab1/blob/master/Images/13.png?raw=true)
+![](https://github.com/cxdzb/Lab1/blob/master/Images/7.png?raw=true)
